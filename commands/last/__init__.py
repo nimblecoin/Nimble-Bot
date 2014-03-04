@@ -11,4 +11,4 @@ def last_run_cmd(line, config):
         return False
     jsonData = json.loads(url.read())
     logger.info('Completed command')
-    return 'PRIVMSG ' + config['channel'] + ' :' + 'Last Block: #' + str(jsonData['getblocksfound']['data'][0]['height']) + ' | Shares: ' + str(jsonData['getblocksfound']['data'][0]['shares']) + ' | Confirmations: ' + str(jsonData['getblocksfound']['data'][0]['confirmations']) + ' | Solved By: ' + str(jsonData['getblocksfound']['data'][0]['finder'])
+    return 'PRIVMSG ' + config['channel'] + ' :' + 'Last Block: #' + str(jsonData['getblocksfound']['data'][0]['height']) + ' | Amount: ' + str(jsonData['getblocksfound']['data'][0]['amount']) + ' | Shares: ' + str(jsonData['getblocksfound']['data'][0]['shares']) + ' | Confirmations: ' + str(jsonData['getblocksfound']['data'][0]['confirmations']) + ' | Found by: ' + str(jsonData['getblocksfound']['data'][0]['finder'])
