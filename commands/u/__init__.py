@@ -1,4 +1,4 @@
-import urllib
+import urllib2
 import logging
 import json
 
@@ -8,7 +8,8 @@ def u_run_cmd(line, config):
     logger.debug(userNick)
     if len(userNick) == 2:
         userNick = userNick[1]
-        url = urllib.urlopen(config['api_url'] + '&action=getuserstatus&api_key=' + config['api_key'] + '&id=' + userNick)
+        req = urllib2.Request(config['api_url'] + '&action=getuserstatus&api_key=' + config['api_key'] + '&id=' + userNick, headers={'User-Agent': 'Mozilla/5.0'})
+        url = urllib2.urlopen(req)
         if url.getcode() != 200:
             logger.error('Request failed with http error: ' + str(url.getcode()))
             return False

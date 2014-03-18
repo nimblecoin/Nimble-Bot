@@ -1,4 +1,4 @@
-import urllib
+import urllib2
 import logging
 import json
 import locale
@@ -7,13 +7,15 @@ def status_run_cmd(line, config):
     locale.setlocale(locale.LC_ALL, 'en_US.utf8')
     logger = logging.getLogger('bot.cmd.status')
     logger.debug('Opening URL for status command')
-    url = urllib.urlopen(config['api_url'] + '&action=getpoolstatus&api_key=' + config['api_key'])
+    req = urllib2.Request(config['api_url'] + '&action=getpoolstatus&api_key=' + config['api_key'], headers={'User-Agent': 'Mozilla/5.0'})
+    url = urllib2.urlopen(req)
     if url.getcode() != 200:
         logger.error('Request failed with http error: ' + str(url.getcode()))
         return False
     logger.debug('Reading JSON data from response')
     jsonData = json.loads(url.read())
-    urlpublic = urllib.urlopen(config['api_url'] + '&action=public')
+    reqpublic = urllib2.Request(config['api_url'] + '&action=public', headers={'User-Agent': 'Mozilla/5.0'})
+    urlpublic = urllib2.urlopen(reqpublic)
     if urlpublic.getcode() != 200:
         logger.error('Request failed with http error: ' + str(url.getcode()))
         return False
